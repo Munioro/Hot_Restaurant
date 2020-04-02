@@ -23,5 +23,27 @@
             </div>
         </div>h2
     </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">for (var j = 1; j <= fiveDays.length; j++){
+        var fiveDiv = $('<div class="card text-white bg-primary mb-3 col-sm">')
+        var cardBody = $('<div class="card-body">');
+        var cardTitle = $('<h5 class="card-title text-center">').text(fiveDays[j - 1]);
+        var responlist = response.list[j * 8 - 1];
+        console.log(j * 8 - 1)
+        var iconCodes = responlist.weather[0].icon;
+        var iconurls = "http://openweathermap.org/img/wn/" + iconCodes + "@2x.png";
+
+        var cardImg = $('<img>').attr('src', iconurls);
+        var cardText = $('<div class="card-text">');
+        var tempP = $('<p class="cardTemp">').text("Temperature: " + kelvinToFahrenheit(responlist.main.temp));
+        var humidP = $('<p class="cardHumid">').text("Humidity: " + responlist.main.humidity);
+
+        fiveDiv.append(cardBody).append(cardTitle).append(cardImg).append(cardText).append(tempP).append(humidP);
+
+
+        $('.forcast-row').append(fiveDiv);
+
+
+    }
+</script>
 </body>
 </html>
