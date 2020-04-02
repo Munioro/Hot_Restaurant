@@ -14,37 +14,37 @@
     <div class="jumbotron">
       <h1>Make Your Reservation</h1>
       <hr>
-      <a href="/tables"><button class="btn btn-danger btn-lg"><span class="fa fa-eye"></span> View Tables</button></a>
+      <a href="./home.html"><button class="btn btn-primary btn-lg"><span class="fa fa-home"></span>Home Page</button></a>
+      <a href="./tables.html"><button class="btn btn-danger btn-lg"><span class="fa fa-eye"></span> View Tables</button></a>
     </div>
     <div class="row">
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <h3><strong>Add Characters</strong></h3>
+            <h3><strong>Add Customer</strong></h3>
           </div>
           <div class="card-body">
             <form method="POST" role="form">
               <div class="form-group">
-                <label for="name">Name</label>
+                <label for="name">Customer Name</label>
                 <input type="text" class="form-control" id="name">
               </div>
               <div class="form-group">
-                <label for="role">Role</label>
-                <input type="text" class="form-control" id="role">
+                <label for="id">ID</label>
+                <input type="text" class="form-control" id="id">
               </div>
               <div class="form-group">
-                <label for="age">Age</label>
-                <input type="text" class="form-control" id="age">
+                <label for="phone">Phone Number</label>
+                <input type="text" class="form-control" id="phone">
               </div>
               <div class="form-group">
-                <label for="force-points">Force Points</label>
-                <input type="text" class="form-control" id="force-points">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" id="email">
               </div>
             </form>
             <br>
             <div class="text-right">
-              <button type="submit" class="btn btn-primary btn-md" id="add-btn"><span class="fa fa-fire"></span> Add to
-                the Force</button>
+              <button type="submit" class="btn btn-primary btn-md" id="add-btn"><span class="fa fa-fire"></span>Submit</button>
             </div>
           </div>
         </div>
@@ -52,8 +52,17 @@
     </div>
   </div>
   <script type="text/javascript">
-  //
-  $.post("/api/tables", newReservation,
+    // Question: What does this code do?
+    $("#add-btn").on("click", function (event) {
+      event.preventDefault();
+      var newReservation= {
+        name: $("#name").val().trim(),
+        id: $("#id").val().trim(),
+        phone: $("#phone").val().trim(),
+        email: $("#email").val().trim()
+      };
+      // Question: What does this code do??
+      $.post("/api/tables", newReservation,
       function(data) {
         // If a table is available... tell user they are booked.
         if (data) {
@@ -64,32 +73,12 @@
           alert("Sorry you are on the wait list");
         }
         // Clear the form when submitting
-        $("#reserve-name").val("");
-        $("#reserve-phone").val("");
-        $("#reserve-email").val("");
-        $("#reserve-unique-id").val("");
+        $("#name").val("");
+        $("#phone").val("");
+        $("#email").val("");
+        $("#id").val("");
       });
-  //
-    // Question: What does this code do?
-    $("#add-btn").on("click", function (event) {
-      event.preventDefault();
-      var newCharacter = {
-        name: $("#name").val().trim(),
-        role: $("#role").val().trim(),
-        age: $("#age").val().trim(),
-        forcePoints: $("#force-points").val().trim()
-      };
-      // Question: What does this code do??
-      $.post("/api/characters", newCharacter)
-        .then(function (data) {
-          console.log("add.html", data);
-          alert("Adding character...");
-        });
-    });
+    })
   </script>
 </body>
 </html>
-
-
-
-
